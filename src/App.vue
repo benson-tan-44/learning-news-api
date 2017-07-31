@@ -1,60 +1,157 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div>
+    <app-header></app-header>
+      <transition name="slide" mode="out-in">
+        <router-view>test</router-view>
+      </transition>
+
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+  components: {
+      appHeader: Header,
+      appFooter: Footer,
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+
+.slide-enter-active {
+  animation: slide-in 200ms ease-out forwards;
 }
 
-h1, h2 {
-  font-weight: normal;
+.slide-leave-active {
+  animation: slide-out 200ms ease-out forwards;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(0);
+    opacity:1
+  }
 }
 
-li {
-  display: inline-block;
-  margin: 0 10px;
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-30px);
+    opacity:0;
+  }
 }
 
-a {
-  color: #42b983;
+
+html {
+    min-height: 100%;
+    position: relative;
 }
+
+.footer {
+    background-color: black;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.footer .text{
+  margin:20px 0;
+  color:white;
+}
+
+body{
+  background: #171c25;
+  font-family:'lato', sans-serif;
+  font-size:20px;
+  margin-bottom: 120px;
+}
+
+.lead{
+  font-weight:300;
+  font-variant: small-caps;
+}
+
+.btn{
+  text-transform:uppercase;
+  font-size:12px;
+  background: #f9c700;
+  border-radius:0px;
+
+}
+
+.btn:hover, .btn:focus {
+  background: #2e3743;
+}
+
+.btn-primary{
+  border:0px;
+  color:black;
+}
+
+.btn a{
+  text-decoration:none;
+
+}
+
+.panel-heading{
+  text-transform:uppercase;
+  font-weight:400;
+  text-decoration:bold;
+  font-size:18px;
+  letter-spacing:0.09em;
+}
+
+.panel-body{
+  font-weight:300;
+}
+
+a{
+  color:white;
+}
+
+a:hover, a:focus{
+  background:none;
+  color:white;
+}
+
+.jumbotron p{
+  font-size:21px;
+}
+
+.jumbotron .lead{
+  font-size:18px;
+}
+
+.jumbotron h1 {
+  font-size:54px;
+}
+
+.col-md-4{
+  padding:0px 15px 0px 0px;
+}
+
+h1{
+  text-transform:uppercase;
+}
+
+hr{
+  border-color:#ccc
+}
+
 </style>
