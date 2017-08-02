@@ -7,29 +7,26 @@
 
 
 
-          <div id="weatherApp">
+      <div id="weatherApp">
             <form v-on:submit.prevent="getPets">
-      Server:
-      <input type="text" v-model="charServer"/>
-      Character:
-      <input type="text" v-model="charName"/>
-      <button class="btn btn-primary">Search Pets</button>
-          </form>
-</div>
+              Server:
+              <input type="text" v-model="charServer"/>
+              Character:
+              <input type="text" v-model="charName"/>
+              <button v-on:click="togglePet" class="btn btn-primary">Display Pets</button>
+            </form>
+        </div>
 
     <hr class="my-4">
 
-    <div v-for="results in result">
+    <div v-if="displayPet">
+      <div v-for="results in result">
+      <div v-for="pets in results.collected">
 
+          {{pets.name}}
 
-    <div v-for="pets in results.collected">
-
-        {{pets.name}}
-            {{pets.icon}}
-
-
+      </div>
     </div>
-
 
 
 </table>
@@ -57,21 +54,38 @@ export default {
       result: [],
       charName: '',
       charServer: '',
-      displayData: false
+      displayPet: false
     }
   },
+
+  computed: {
+
+  },
+
 
   methods: {
     getPets: function()
     {
         return this.$http.get('https://us.api.battle.net/wow/character/' + this.charServer +  '/' + this.charName + '?fields=pets&' + 'locale=en_US&apikey=' + this.apiKey).then((response) => {
             this.result = response.body;
-            this.displayData = true;
         }, (response) => {
             this.result = [];
-            this.displayData = false;
         });
+    },
+
+    togglePet: function()
+    {
+      if(this.displayPet == false){
+        this.displayPet = true;
+      } else {
+        this.displayPet = false;
+      }
+
+
     }
+
+
+
   }
 
 
