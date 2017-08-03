@@ -8,24 +8,27 @@
 
 
       <div id="weatherApp">
-            <form v-on:submit.prevent="getPets">
-              Server:
-              <input type="text" v-model="charServer"/>
-              Character:
-              <input type="text" v-model="charName"/>
-              <button v-on:click="togglePet" class="btn btn-primary">Display Pets</button>
+            <form v-on:submit.prevent="getSource">
+              <button v-on:click="toggleSource" class="btn btn-primary">Display</button>
             </form>
         </div>
 
     <hr class="my-4">
 
-    <div v-if="displayPet">
-      <div v-for="results in result">
-      <div v-for="pets in results.collected">
+    <div v-if="displaySource">
+        <div v-for="results in result.articles">
 
-          {{pets.name}}
+          {{results.title}}
+          <img :src="results.urlToImage" class="img-responsive" />
+          <hr/>
 
-      </div>
+
+
+
+        </div>
+
+
+
     </div>
 
 
@@ -50,11 +53,11 @@ export default {
 
   data: function() {
     return{
-      apiKey: '73nc6m85wd37mrws72hp5vavxm9pus98',
+      apiKey: '8ffa9387a9c04a03bd31dca865d38f31',
       result: [],
-      charName: '',
-      charServer: '',
-      displayPet: false
+      displaySource: false,
+      sort: 'top',
+      source: 'cnn'
     }
   },
 
@@ -64,21 +67,21 @@ export default {
 
 
   methods: {
-    getPets: function()
+    getSource: function()
     {
-        return this.$http.get('https://us.api.battle.net/wow/character/' + this.charServer +  '/' + this.charName + '?fields=pets&' + 'locale=en_US&apikey=' + this.apiKey).then((response) => {
+        return this.$http.get('https://newsapi.org/v1/articles?source=' + this.source  + '&sortBy=' + this.sort + '&apiKey=' + this.apiKey).then((response) => {
             this.result = response.body;
         }, (response) => {
             this.result = [];
         });
     },
 
-    togglePet: function()
+    toggleSource: function()
     {
-      if(this.displayPet == false){
-        this.displayPet = true;
+      if(this.displaySource == false){
+        this.displaySource = true;
       } else {
-        this.displayPet = false;
+        this.displaySource = false;
       }
 
 
@@ -97,6 +100,9 @@ export default {
 </script>
 
 <style>
+ul{
+  list-style-type: none;
+}
 
 .loc{
   font-size:32px;
