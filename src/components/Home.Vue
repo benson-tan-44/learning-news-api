@@ -7,10 +7,13 @@
 
 
 
-      <div id="weatherApp">
-            <form v-on:submit.prevent="getSource">
-              <button v-on:click="toggleSource" class="btn btn-primary">Display</button>
-            </form>
+      <div class="header" id="newsApp">
+              select your source:
+              <select v-on:change="getSource" v-model="source">
+                <option value="buzzfeed">Buzzfeed</option>
+                <option value="cnn">CNN</option>
+              </select>
+
         </div>
 
     <hr class="my-4">
@@ -18,8 +21,12 @@
     <div v-if="displaySource">
         <div v-for="results in result.articles">
 
-          {{results.title}}
-          <img :src="results.urlToImage" class="img-responsive" />
+        <div class="newsTitle">  {{results.title}} </div>
+
+
+          <a target="_blank" v-on:click="getCurrentSource"><img :src="results.urlToImage" class="img-responsive" /></a>
+
+        <!--  {{results.description}} -->
           <hr/>
 
 
@@ -27,7 +34,13 @@
 
         </div>
 
+    </div>
 
+    <div v-if="singleSource">
+
+      Test Kevin is gay and has a foot fetish
+
+      <p v-on:click="backSource">Back to Results</p>
 
     </div>
 
@@ -53,16 +66,13 @@ export default {
 
   data: function() {
     return{
-      apiKey: '8ffa9387a9c04a03bd31dca865d38f31',
+      apiKey: '865694353a2548b79f33e7450d00ec13',
       result: [],
       displaySource: false,
       sort: 'top',
-      source: 'cnn'
+      source: '',
+      singleSource: false
     }
-  },
-
-  computed: {
-
   },
 
 
@@ -71,22 +81,22 @@ export default {
     {
         return this.$http.get('https://newsapi.org/v1/articles?source=' + this.source  + '&sortBy=' + this.sort + '&apiKey=' + this.apiKey).then((response) => {
             this.result = response.body;
+            this.displaySource = true;
         }, (response) => {
             this.result = [];
         });
     },
 
-    toggleSource: function()
+    getCurrentSource: function()
     {
-      if(this.displaySource == false){
-        this.displaySource = true;
-      } else {
-        this.displaySource = false;
-      }
+     this.displaySource = false;
+     this.singleSource = true;
+   },
 
-
-    }
-
+   backSource: function() {
+     this.displaySource = true;
+     this.singleSource = false;
+   }
 
 
   }
@@ -114,5 +124,13 @@ ul{
   margin:0px;
 }
 
+.header{
+  font-family: 'Lato', sans-serif;
+  text-transform:uppercase;
+  font-weight:400;
+}
 
+.newsTitle{
+  font-size:1.2em;
+}
 </style>
