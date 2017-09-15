@@ -24,7 +24,8 @@
         <div class="newsTitle">  {{results.title}} </div>
 
 
-          <a target="_blank" v-on:click="getCurrentSource"><img :src="results.urlToImage" class="img-responsive" /></a>
+          <a target="_blank" v-on:click="getCurrentSource(results.author, results.title, results.description, results.urlToImage, results.publishedAt, results.url)">
+            <img :src="results.urlToImage" class="img-responsive" /></a>
 
         <!--  {{results.description}} -->
           <hr/>
@@ -37,10 +38,22 @@
     </div>
 
     <div v-if="singleSource">
+      <div class="row">
+        <div class="col-md-7">
 
-      Test Kevin is gay and has a foot fetish
+          <img :src="selectedSource.image" class="img-responsive" />
+        </div>
 
-      <p v-on:click="backSource">Back to Results</p>
+        <div class="col-md-5">
+          <div class="newsTitle underline"> {{selectedSource.title}} </div>
+          <div class="newsDesc"> {{selectedSource.description}}</div>
+          <button class="btn btn-danger"><a target="_blank" :href="selectedSource.url" >Read More</a></button>
+          <button class="btn btn-danger" v-on:click="backSource">Back to Results</button>
+        </div>
+
+      </div>
+
+
 
     </div>
 
@@ -71,7 +84,8 @@ export default {
       displaySource: false,
       sort: 'top',
       source: '',
-      singleSource: false
+      singleSource: false,
+      selectedSource: {}
     }
   },
 
@@ -82,15 +96,26 @@ export default {
         return this.$http.get('https://newsapi.org/v1/articles?source=' + this.source  + '&sortBy=' + this.sort + '&apiKey=' + this.apiKey).then((response) => {
             this.result = response.body;
             this.displaySource = true;
+            this.singleSource = false;
         }, (response) => {
             this.result = [];
+
         });
+
     },
 
-    getCurrentSource: function()
+    getCurrentSource: function(author, title, description, image, published, url )
     {
      this.displaySource = false;
      this.singleSource = true;
+     this.selectedSource = {
+       author: author,
+       title: title,
+       description: description,
+       image: image,
+       published: published,
+       url: url
+     }
    },
 
    backSource: function() {
@@ -127,10 +152,25 @@ ul{
 .header{
   font-family: 'Lato', sans-serif;
   text-transform:uppercase;
-  font-weight:400;
+  font-weight:300;
 }
 
 .newsTitle{
-  font-size:1.2em;
+  font-size:1em;
 }
+
+.underline{
+  text-decoration:underline;
+}
+
+
+.newsDesc{
+  font-size:0.8em;
+}
+
+.btn-danger{
+  border:none;
+}
+
+
 </style>

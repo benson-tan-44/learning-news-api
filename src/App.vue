@@ -90,7 +90,7 @@ body{
 .btn{
   text-transform:uppercase;
   font-size:12px;
-  background: #f9c700;
+  background: black;
   border-radius:0px;
 
 }
@@ -107,6 +107,10 @@ body{
 .btn a{
   text-decoration:none;
 
+}
+
+.btn-danger:hover{
+  background:#aaa;
 }
 
 .panel-heading{
