@@ -47,6 +47,7 @@
         <div class="col-md-5">
           <div class="newsTitle underline"> {{selectedSource.title}} </div>
           <div class="newsDesc"> {{selectedSource.description}}</div>
+          <div class="published">{{selectedSource.published | formatDate }}</div>
           <button class="btn btn-danger"><a target="_blank" :href="selectedSource.url" >Read More</a></button>
           <button class="btn btn-danger" v-on:click="backSource">Back to Results</button>
         </div>
