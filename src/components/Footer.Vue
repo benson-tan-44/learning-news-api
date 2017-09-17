@@ -27,6 +27,7 @@ footer {
   font-family: 'Lato', sans-serif;
   text-transform:uppercase;
   margin-top:20px;
+  padding-bottom:20px;
 }
 
 .footer .text{
