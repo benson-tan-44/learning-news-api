@@ -38,19 +38,27 @@
     </div>
 
     <div v-if="singleSource">
-      <div class="row">
-        <div class="col-md-7">
+      <div class="row row-padder">
+
 
           <img :src="selectedSource.image" class="img-responsive" />
-        </div>
 
-        <div class="col-md-5">
+
+
           <div class="newsTitle underline"> {{selectedSource.title}} </div>
+          <div class="published">{{selectedSource.published | formatDate }} by {{selectedSource.author}}</div>
+
           <div class="newsDesc"> {{selectedSource.description}}</div>
-          <div class="published">{{selectedSource.published | formatDate }}</div>
-          <button class="btn btn-danger"><a target="_blank" :href="selectedSource.url" >Read More</a></button>
-          <button class="btn btn-danger" v-on:click="backSource">Back to Results</button>
-        </div>
+
+
+
+          <hr />
+
+
+
+          <div class="btn btn-danger"><a target="_blank" :href="selectedSource.url" >Read More</a></div>
+          <div class="btn btn-danger" v-on:click="backSource">Back to Results</div>
+
 
       </div>
 
@@ -115,7 +123,7 @@ export default {
        description: description,
        image: image,
        published: published,
-       url: url
+       url: url,
      }
    },
 
@@ -136,6 +144,17 @@ export default {
 </script>
 
 <style>
+
+.row-padder{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.published{
+  font-size:14px;
+  text-transform:uppercase;
+}
+
 ul{
   list-style-type: none;
 }
@@ -158,15 +177,18 @@ ul{
 
 .newsTitle{
   font-size:1em;
+  text-transform:uppercase;
+  font-weight:700;
 }
 
 .underline{
-  text-decoration:underline;
+
 }
 
 
 .newsDesc{
   font-size:0.8em;
+  margin-top:2%;
 }
 
 .btn-danger{

@@ -19,7 +19,7 @@ const router = new VueRouter({
 
 var date = function(value) {
   if (value) {
-    return moment(String(value)).format(' dddd | MM/DD/YYYY ');
+    return moment(String(value)).format(' MMMM Do YYYY, h:mm:ss a ');
   }
 }
 
