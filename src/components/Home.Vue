@@ -4,9 +4,6 @@
     <div class="container">
       <div class="jumbotron container-fluid">
 
-
-
-
       <div class="header" id="newsApp">
               select your source:
               <select v-on:change="getSource" v-model="source">
@@ -23,15 +20,11 @@
 
         <div class="newsTitle">  {{results.title}} </div>
 
-
           <a target="_blank" v-on:click="getCurrentSource(results.author, results.title, results.description, results.urlToImage, results.publishedAt, results.url)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
 
         <!--  {{results.description}} -->
           <hr/>
-
-
-
 
         </div>
 
@@ -43,18 +36,15 @@
 
           <img :src="selectedSource.image" class="img-responsive" />
 
-
-
           <div class="newsTitle underline"> {{selectedSource.title}} </div>
-          <div class="published">{{selectedSource.published | formatDate }} by {{selectedSource.author}}</div>
+
+          <span v-if="selectedSource.pushlished != ''">
+            <div class="published">{{selectedSource.published | formatDate }} by {{selectedSource.author}}</div>
+          </span>
 
           <div class="newsDesc"> {{selectedSource.description}}</div>
 
-
-
           <hr />
-
-
 
           <div class="btn btn-danger"><a target="_blank" :href="selectedSource.url" >Read More</a></div>
           <div class="btn btn-danger" v-on:click="backSource">Back to Results</div>
