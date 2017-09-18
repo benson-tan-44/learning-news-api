@@ -11,6 +11,8 @@
                 <option value="cnn">CNN</option>
               </select>
 
+              <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
+
         </div>
 
     <hr class="my-4">
@@ -78,6 +80,7 @@ export default {
 
   data: function() {
     return{
+      availableSources: [],
       apiKey: '865694353a2548b79f33e7450d00ec13',
       result: [],
       displaySource: false,
@@ -120,6 +123,16 @@ export default {
    backSource: function() {
      this.displaySource = true;
      this.singleSource = false;
+   },
+
+   getRandomSource: function() {
+     this.source = '';
+
+
+
+       this.source = 'buzzfeed';
+       this.getSource();
+
    }
 
 
@@ -134,6 +147,15 @@ export default {
 </script>
 
 <style>
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 16px;
+    line-height: inherit;
+    padding: 6px;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
 
 .row-padder{
   padding-left:10px;
