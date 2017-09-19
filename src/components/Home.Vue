@@ -7,8 +7,9 @@
       <div class="header" id="newsApp">
               select your source:
               <select v-on:change="getSource" v-model="source">
-                <option value="buzzfeed">Buzzfeed</option>
+                <option value="bloomberg">Bloomberg</option>
                 <option value="cnn">CNN</option>
+                <option value="espn">ESPN</option>
               </select>
 
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
@@ -80,7 +81,7 @@ export default {
 
   data: function() {
     return{
-      availableSources: [],
+      availableSources: ['cnn', 'bloomberg', 'espn'],
       apiKey: '865694353a2548b79f33e7450d00ec13',
       result: [],
       displaySource: false,
@@ -120,18 +121,27 @@ export default {
      }
    },
 
+  randomNumber: function(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+  },
+
    backSource: function() {
      this.displaySource = true;
      this.singleSource = false;
    },
 
    getRandomSource: function() {
-     this.source = '';
 
+      var result = this.randomNumber(0,2);
 
-
-       this.source = 'buzzfeed';
-       this.getSource();
+      for(var i=0; i<1; i++) {
+        if (this.source == this.availableSources[result])
+        {
+          result = this.randomNumber(0,2);
+        }
+      }
+         this.source = this.availableSources[result];
+         this.getSource();
 
    }
 
