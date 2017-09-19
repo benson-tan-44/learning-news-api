@@ -23,7 +23,7 @@
 
         <div class="newsTitle">  {{results.title}} </div>
 
-          <a target="_blank" v-on:click="getCurrentSource(results.author, results.title, results.description, results.urlToImage, results.publishedAt, results.url)">
+          <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
 
         <!--  {{results.description}} -->
@@ -41,7 +41,7 @@
 
           <div class="newsTitle underline"> {{selectedSource.title}} </div>
 
-          <span v-if="selectedSource.pushlished != ''">
+          <span v-if="selectedSource.published != '' ">
             <div class="published">{{selectedSource.published | formatDate }} by {{selectedSource.author}}</div>
           </span>
 
@@ -107,17 +107,17 @@ export default {
 
     },
 
-    getCurrentSource: function(author, title, description, image, published, url )
+    getCurrentSource: function(results)
     {
      this.displaySource = false;
      this.singleSource = true;
      this.selectedSource = {
-       author: author,
-       title: title,
-       description: description,
-       image: image,
-       published: published,
-       url: url,
+       author: results.author,
+       title: results.title,
+       description: results.description,
+       image: results.urlToImage,
+       published: results.publishedAt,
+       url: results.url,
      }
    },
 
