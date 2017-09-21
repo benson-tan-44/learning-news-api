@@ -134,12 +134,11 @@ export default {
 
       var result = this.randomNumber(0,2);
 
-      for(var i=0; i<1; i++) {
-        if (this.source == this.availableSources[result])
-        {
-          result = this.randomNumber(0,2);
-        }
+      do{
+        result = this.randomNumber(0,2);
       }
+      while(this.source == this.availableSources[result])
+
          this.source = this.availableSources[result];
          this.getSource();
 
