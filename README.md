@@ -1,6 +1,6 @@
 # VueJS Learning News API
 
-> This is a VueJS Project I made to learn how to use a news API.
+> This is a VueJS Project to learn how to use a news API.
 
 ## Build Setup
 
