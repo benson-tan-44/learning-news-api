@@ -1,6 +1,6 @@
-# vue-project-4
+# VueJS Learning News API
 
-> A Vue.js project
+> This is a VueJS Project I made to learn how to use a news API.
 
 ## Build Setup
 
