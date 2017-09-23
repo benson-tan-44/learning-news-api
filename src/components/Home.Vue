@@ -61,9 +61,7 @@
 
 
     <div class="temp">
-      <span v-for="names in processedSources">
-        {{names}}
-      </span>
+      {{allSourceNames}}
 
     </div>
 
@@ -102,6 +100,7 @@ export default {
       singleSource: false,
       selectedSource: {},
       allSources: [],
+      allSourceNames:[]
     }
   },
 
@@ -171,8 +170,10 @@ export default {
    obtainSourceNames() {
      this.$http.get('https://newsapi.org/v1/sources?language=en').then((response) => {
           this.allSources = response.body;
+          this.pushSources();
       }, (response) => {
           this.allSources = [];
+
       });
 
 
