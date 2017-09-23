@@ -86,7 +86,7 @@ export default {
       result: [],
       displaySource: false,
       sort: 'top',
-      source: 'bloomberg',
+      source: '',
       singleSource: false,
       selectedSource: {}
     }
@@ -145,7 +145,10 @@ export default {
    }
 
 
-  }
+ },
+ mounted() {
+   this.getRandomSource();
+ }
 
 
 }
