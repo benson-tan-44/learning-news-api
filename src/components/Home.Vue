@@ -86,7 +86,7 @@ export default {
       result: [],
       displaySource: false,
       sort: 'top',
-      source: '',
+      source: 'bloomberg',
       singleSource: false,
       selectedSource: {}
     }
