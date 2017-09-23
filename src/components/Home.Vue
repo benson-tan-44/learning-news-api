@@ -60,6 +60,18 @@
     </div>
 
 
+    <div class="temp">
+      <span v-for="names in processedSources">
+        {{names}}
+      </span>
+
+    </div>
+
+    <div v-on:click="pushSources" class="click">Thource</div>
+
+
+
+
 </table>
 
 
@@ -88,7 +100,8 @@ export default {
       sort: 'top',
       source: '',
       singleSource: false,
-      selectedSource: {}
+      selectedSource: {},
+      allSources: [],
     }
   },
 
@@ -142,10 +155,39 @@ export default {
          this.source = this.availableSources[result];
          this.getSource();
 
+   },
+
+   pushSources: function() {
+
+
+     for(var i=0; i<this.allSources.sources.length; i++){
+       var item;
+       item = this.allSources.sources[i].id;
+        this.allSourceNames.push(item);
+     }
+
+   },
+
+   obtainSourceNames() {
+     this.$http.get('https://newsapi.org/v1/sources?language=en').then((response) => {
+          this.allSources = response.body;
+      }, (response) => {
+          this.allSources = [];
+      });
+
+
    }
 
 
-  }
+ },
+
+
+ mounted() {
+   this.obtainSourceNames();
+},
+
+
+
 
 
 }
