@@ -65,7 +65,6 @@
 
     </div>
 
-    <div v-on:click="pushSources" class="click">Thource</div>
 
 
 
@@ -184,6 +183,7 @@ export default {
 
 
  mounted() {
+   this.getRandomSource();
    this.obtainSourceNames();
 },
 
