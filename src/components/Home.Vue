@@ -5,14 +5,12 @@
       <div class="jumbotron container-fluid">
 
       <div class="header" id="newsApp">
-              select your source:
-              <select v-on:change="getSource" v-model="source">
-                <option value="bloomberg">Bloomberg</option>
-                <option value="cnn">CNN</option>
-                <option value="espn">ESPN</option>
-              </select>
+              Type your source:
+              <input v-model="source" />
 
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
+
+              <div v-if="errorMessage" class="errorMessage">{{source}}</div>
 
         </div>
 
@@ -81,17 +79,22 @@ export default {
 
   data: function() {
     return{
-      availableSources: ['cnn', 'bloomberg', 'espn'],
       apiKey: '865694353a2548b79f33e7450d00ec13',
       result: [],
       displaySource: false,
       sort: 'top',
       source: '',
       singleSource: false,
-      selectedSource: {}
+      selectedSource: {},
+      allSources: []
     }
   },
 
+watch: {
+  source: function() {
+    this.getSource();
+  }
+},
 
   methods: {
     getSource: function()
