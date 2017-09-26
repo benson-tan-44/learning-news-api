@@ -142,12 +142,24 @@ export default {
          this.source = this.availableSources[result];
          this.getSource();
 
+   },
+
+   obtainSourceNames() {
+     this.$http.get('https://newsapi.org/v1/sources?language=en').then((response) => {
+          this.allSources = response.body;
+          this.pushSources();
+      }, (response) => {
+          this.allSources = [];
+      });
+
    }
+
 
 
  },
  mounted() {
    this.getRandomSource();
+   this.obtainSourceNames();
  }
 
 
