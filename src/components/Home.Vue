@@ -172,9 +172,7 @@ export default {
           this.pushSources();
       }, (response) => {
           this.allSources = [];
-
       });
-
 
    }
 
