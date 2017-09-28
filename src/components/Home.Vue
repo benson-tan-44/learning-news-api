@@ -10,6 +10,10 @@
 
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
+              <select v-model="userFilter">
+                <option>Reverse</option>
+              </select>
+
               <div v-if="errorMessage" class="errorMessage">{{source}}</div>
 
         </div>
