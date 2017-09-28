@@ -11,6 +11,7 @@
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
               <select v-model="userFilter">
+                <option :value="null" disabled>None</option>
                 <option>Reverse</option>
               </select>
 
@@ -90,7 +91,8 @@ export default {
       source: '',
       singleSource: false,
       selectedSource: {},
-      allSources: []
+      allSources: [],
+      userFilter: null
     }
   },
 
