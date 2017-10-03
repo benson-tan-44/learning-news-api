@@ -15,7 +15,7 @@
                 <option>Reverse</option>
               </select>
 
-              <div v-if="errorMessage" class="errorMessage">{{source}}</div>
+
 
         </div>
 
@@ -23,32 +23,17 @@
 
     <div v-if="displaySource">
 
-      <span v-if="userFilter != 'Reverse'">
-
         <div v-for="results in result.articles">
 
         <div class="newsTitle">  {{results.title}} </div>
 
           <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
+
+        <!--  {{results.description}} -->
           <hr/>
 
         </div>
-
-      </span>
-
-      <span v-if="userFilter == 'Reverse'">
-        <div v-for="results in reverseItems" :key="result.articles">
-
-        <div class="newsTitle">  {{results.title}} </div>
-
-          <a target="_blank" v-on:click="getCurrentSource(results)">
-            <img :src="results.urlToImage" class="img-responsive" /></a>
-          <hr/>
-
-        </div>
-      </span>
-
 
     </div>
 
@@ -79,7 +64,12 @@
     </div>
 
 
-</table>
+    <div class="test">
+      {{sourcesArray}}
+
+    </div>
+
+
 
 
 
@@ -108,6 +98,7 @@ export default {
       singleSource: false,
       selectedSource: {},
       allSources: [],
+      sourcesArray:[],
       userFilter: null
     }
   },
@@ -119,9 +110,7 @@ watch: {
 },
 
 computed: {
-  reverseItems() {
-    return this.items.slice().reverse();
-  }
+  //Computed will do the filters I specify
 },
 
   methods: {
@@ -165,22 +154,38 @@ computed: {
 
       var result = this.randomNumber(0,2);
 
+/*
       do{
         result = this.randomNumber(0,2);
       }
-      while(this.source == this.availableSources[result])
+      while(this.source == this.allSources[result].name)
 
-         this.source = this.availableSources[result];
+         this.source = this.allSources[result].name;
          this.getSource();
+*/
+   },
+
+   pushSources() {
+
+
+     for(var i=0; i<this.allSources.length; i++){
+       var result = this.allSources[i].id;
+
+       if(result != 'buzzfeed') {
+        result = result.replace(/"/g, '')
+         this.sourcesArray.push(result);
+       }
+     }
 
    },
 
    obtainSourceNames() {
      this.$http.get('https://newsapi.org/v1/sources?language=en').then((response) => {
-          this.allSources = response.body;
+          this.allSources = response.body.sources;
           this.pushSources();
       }, (response) => {
           this.allSources = [];
+
       });
 
    }
@@ -188,9 +193,10 @@ computed: {
 
 
  },
- mounted() {
-   this.getRandomSource();
+created() {
+   //this.getRandomSource();
    this.obtainSourceNames();
+
  }
 
 
