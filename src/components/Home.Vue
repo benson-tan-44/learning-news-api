@@ -22,17 +22,33 @@
     <hr class="my-4">
 
     <div v-if="displaySource">
+
+      <span v-if="userFilter != 'Reverse'">
+
         <div v-for="results in result.articles">
 
         <div class="newsTitle">  {{results.title}} </div>
 
           <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
-
-        <!--  {{results.description}} -->
           <hr/>
 
         </div>
+
+      </span>
+
+      <span v-if="userFilter == 'Reverse'">
+        <div v-for="results in reverseItems" :key="result.articles">
+
+        <div class="newsTitle">  {{results.title}} </div>
+
+          <a target="_blank" v-on:click="getCurrentSource(results)">
+            <img :src="results.urlToImage" class="img-responsive" /></a>
+          <hr/>
+
+        </div>
+      </span>
+
 
     </div>
 
@@ -103,7 +119,9 @@ watch: {
 },
 
 computed: {
-  //Computed will do the filters I specify
+  reverseItems() {
+    return this.items.slice().reverse();
+  }
 },
 
   methods: {
