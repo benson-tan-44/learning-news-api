@@ -102,6 +102,10 @@ watch: {
   }
 },
 
+computed: {
+  //Computed will do the filters I specify
+},
+
   methods: {
     getSource: function()
     {
