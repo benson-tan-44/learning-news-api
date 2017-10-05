@@ -152,17 +152,17 @@ computed: {
 
    getRandomSource: function() {
 
-      var result = this.randomNumber(0,2);
+      var result = this.randomNumber(0,this.allSources.length - 1);
 
-/*
+
       do{
-        result = this.randomNumber(0,2);
+        result = this.randomNumber(0,this.allSources.length - 1);
       }
-      while(this.source == this.allSources[result].name)
+      while(this.source == this.allSources[result].id)
 
-         this.source = this.allSources[result].name;
+         this.source = this.allSources[result].id;
          this.getSource();
-*/
+
    },
 
    pushSources() {
@@ -172,10 +172,12 @@ computed: {
        var result = this.allSources[i].id;
 
        if(result != 'buzzfeed') {
-        result = result.replace(/"/g, '')
-         this.sourcesArray.push(result);
+        var conresult= result.replace(/"/g, "");
+        console.log(conresult);
+         this.sourcesArray.push(conresult);
        }
      }
+
 
    },
 
@@ -183,6 +185,7 @@ computed: {
      this.$http.get('https://newsapi.org/v1/sources?language=en').then((response) => {
           this.allSources = response.body.sources;
           this.pushSources();
+          this.getRandomSource();
       }, (response) => {
           this.allSources = [];
 
@@ -194,9 +197,7 @@ computed: {
 
  },
 created() {
-   //this.getRandomSource();
    this.obtainSourceNames();
-
  }
 
 
