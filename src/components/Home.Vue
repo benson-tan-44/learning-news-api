@@ -10,11 +10,14 @@
 
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
+              <div >
+                Filter:
               <select v-model="userFilter">
-                <option :value="null" disabled>None</option>
+                <option :value="null">None</option>
                 <option>Reverse</option>
               </select>
 
+              </div>
 
 
         </div>
@@ -23,17 +26,31 @@
 
     <div v-if="displaySource">
 
-        <div v-for="results in result.articles">
+      <div v-if="userFilter == 'Reverse'">
 
-        <div class="newsTitle">  {{results.title}} </div>
+        <div v-for="results in reverseItems">
 
-          <a target="_blank" v-on:click="getCurrentSource(results)">
+          <div class="newsTitle">  {{results.title}} </div>
+            <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
-
-        <!--  {{results.description}} -->
           <hr/>
 
         </div>
+
+      </div>
+
+      <div v-else>
+        <div v-for="results in result.articles">
+
+          <div class="newsTitle">  {{results.title}} </div>
+            <a target="_blank" v-on:click="getCurrentSource(results)">
+            <img :src="results.urlToImage" class="img-responsive" /></a>
+          <hr/>
+
+        </div>
+      </div>
+
+
 
     </div>
 
@@ -110,7 +127,9 @@ watch: {
 },
 
 computed: {
-  //Computed will do the filters I specify
+  reverseItems() {
+    return this.result.articles.slice().reverse();
+  }
 },
 
   methods: {
@@ -217,6 +236,9 @@ button, input, select, textarea {
     padding: 6px;
     text-transform: uppercase;
     vertical-align: middle;
+    max-width:225px;
+    width:100%;
+    margin-bottom:3px;
 }
 
 .row-padder{
