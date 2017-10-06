@@ -80,13 +80,12 @@
 
     </div>
 
-
+<!--
     <div class="test">
       {{sourcesArray}}
 
     </div>
-
-
+-->
 
 
 
