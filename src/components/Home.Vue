@@ -6,15 +6,15 @@
 
       <div class="header" id="newsApp">
               Type your source:
-              <input v-model="source" />
-
+              <input v-model="source"  @keyup.enter="getSource"/>
+              <div v-on:click="getSource" class="btn btn-danger">Go!</div>
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
               <div >
                 Filter:
               <select v-model="userFilter">
                 <option :value="null">None</option>
-                <option>Reverse</option>
+                <option value="Reverse">Reverse</option>
               </select>
 
               </div>
@@ -120,15 +120,23 @@ export default {
   },
 
 watch: {
+  /*
   source: function() {
-    this.getSource();
+
+      this.getSource();
+
   }
+  */
 },
 
 computed: {
+
+
+
   reverseItems() {
     return this.result.articles.slice().reverse();
   }
+
 },
 
   methods: {

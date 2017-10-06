@@ -23,7 +23,11 @@ var date = function(value) {
   }
 }
 
+
+
 Vue.filter('formatDate', date );
+
+
 
 new Vue({
   el: '#app',
