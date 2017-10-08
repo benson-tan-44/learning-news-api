@@ -4,9 +4,21 @@
     <div class="container">
       <div class="jumbotron container-fluid">
 
-      <div class="header" id="newsApp">
+      <div style="position:relative" class="header" id="newsApp" v-bind:class="{'open':openSuggestion}">
               Type your source:
-              <input v-model="source"  @keyup.enter="getSource"/>
+              <input type="text" v-model="source" :value="value" @keyup.enter="getSource" @input="updateValue($event.target.value)"/>
+
+
+              <ul class="dropdown-menu" style="width:100%">
+                 <li v-for="(suggestion, index) in matches"
+                     v-bind:class="{'active': isActive(index)}"
+                     @click="suggestionClick(index)"
+                     >
+                   <a href="#">{{ suggestion }}</small>
+                   </a>
+                 </li>
+              </ul>
+
               <div v-on:click="getSource" class="btn btn-danger">Go!</div>
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
@@ -80,12 +92,12 @@
 
     </div>
 
-<!--
+
     <div class="test">
-      {{sourcesArray}}
+      {{suggestions}}
 
     </div>
--->
+
 
 
 
@@ -115,22 +127,31 @@ export default {
       selectedSource: {},
       allSources: [],
       sourcesArray:[],
-      userFilter: null
+      suggestions: [],
+      userFilter: null,
+      open:false,
+      current:0,
+      value:'',
+      selection:''
     }
   },
 
-watch: {
-  /*
-  source: function() {
-
-      this.getSource();
-
-  }
-  */
-},
-
 computed: {
 
+  matches() {
+
+    return this.sourcesArray.filter((array) => {
+     return array.indexOf(this.value) >= 0;
+
+  })
+
+  },
+
+  openSuggestion () {
+  return this.source !== '' &&
+         this.matches.length !== 0 &&
+         this.open === true
+  },
 
 
   reverseItems() {
@@ -196,10 +217,12 @@ computed: {
 
      for(var i=0; i<this.allSources.length; i++){
        var result = this.allSources[i].id;
+       var sugg = this.allSources[i];
 
        if(result != 'buzzfeed') {
+         this.suggestions.push(sugg)
+
         var conresult= result.replace(/"/g, "");
-        console.log(conresult);
          this.sourcesArray.push(conresult);
        }
      }
@@ -217,7 +240,49 @@ computed: {
 
       });
 
-   }
+   },
+
+
+updateValue (uvalue) {
+  if (this.open === false) {
+    this.open = true
+    this.current = 0
+  }
+  this.value = uvalue;
+},
+
+// When enter key pressed on the input
+enter () {
+  this.source = this.matches[this.current].id
+  this.open = false
+},
+
+// When up arrow pressed while suggestions are open
+up () {
+  if (this.current > 0) {
+    this.current--
+  }
+},
+
+// When down arrow pressed while suggestions are open
+down () {
+  if (this.current < this.matches.length - 1) {
+    this.current++;
+  }
+},
+
+// For highlighting element
+isActive (index) {
+  return index === this.current;
+},
+
+// When one of the suggestion is clicked
+suggestionClick (index) {
+this.source = this.matches[index]
+  this.open = false;
+  this.getSource();
+}
+
 
 
 
