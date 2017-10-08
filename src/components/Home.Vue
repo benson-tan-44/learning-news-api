@@ -242,8 +242,7 @@ computed: {
 
    },
 
-   // Triggered the input event to cascade the updates to
-// parent component
+
 updateValue (uvalue) {
   if (this.open === false) {
     this.open = true
