@@ -6,7 +6,9 @@
 
       <div style="position:relative" class="header" id="newsApp" v-bind:class="{'open':openSuggestion}">
               Type your source:
-              <input type="text" v-model="source" :value="value" @keyup.enter="getSource" @input="updateValue($event.target.value)"/>
+              <input type="text"  v-model="source" :value="value" @keyup.enter="getSource" @input="updateValue($event.target.value)"   @keydown.enter = 'enter'
+          @keydown.down = 'down'
+          @keydown.up = 'up'/>
 
 
               <ul class="dropdown-menu" style="width:100%">
@@ -19,7 +21,7 @@
                  </li>
               </ul>
 
-              <div v-on:click="getSource" class="btn btn-danger">Go!</div>
+            <!--  <div v-on:click="getSource" class="btn btn-danger">Go!</div>-->
               <div v-on:click="getRandomSource" class="btn btn-danger">Randomize!</div>
 
               <div >
@@ -92,12 +94,12 @@
 
     </div>
 
-
+<!--
     <div class="test">
       {{suggestions}}
 
     </div>
-
+-->
 
 
 
@@ -253,14 +255,15 @@ updateValue (uvalue) {
 
 // When enter key pressed on the input
 enter () {
-  this.source = this.matches[this.current].id
-  this.open = false
+  this.source = this.matches[this.current];
+  this.open = false;
+  this.getSource();
 },
 
 // When up arrow pressed while suggestions are open
 up () {
   if (this.current > 0) {
-    this.current--
+    this.current--;
   }
 },
 
