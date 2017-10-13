@@ -6,7 +6,7 @@
 
       <div style="position:relative" class="header" id="newsApp" v-bind:class="{'open':openSuggestion}">
               Type your source:
-              <input type="text"  v-model="source" :value="value" @keyup.enter="getSource" @input="updateValue($event.target.value)"   @keydown.enter = 'enter'
+              <input type="text"  v-model="source" v-on:click="clearCon" :value="value" @keyup.enter="getSource" @input="updateValue($event.target.value)"   @keydown.enter = 'enter'
           @keydown.down = 'down'
           @keydown.up = 'up'/>
 
@@ -168,12 +168,12 @@ computed: {
 
   reverseItems() {
     var result = this.result.articles.slice().reverse();
-    if(this.postAmount == 5) {
-      var sliced = result.slice(0,5);
-      return sliced;
-    } else {
-      return result;
+
+    if(this.postAmount === "5") {
+      return result.slice(0,5);
     }
+
+    return result;
 
   },
 
@@ -202,6 +202,17 @@ computed: {
         });
 
     },
+
+    clearCon: function() {
+
+      if(this.source !== '')
+      {
+        this.source = '';
+      }
+
+    },
+
+
 
     getCurrentSource: function(results)
     {
