@@ -31,6 +31,12 @@
                 <option value="Reverse">Reverse</option>
               </select>
 
+              Posts:
+            <select v-model="postAmount">
+              <option :value="null">All</option>
+              <option value="5">5</option>
+            </select>
+
               </div>
 
 
@@ -44,10 +50,12 @@
 
         <div v-for="results in reverseItems">
 
+
           <div class="newsTitle">  {{results.title}} </div>
             <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
           <hr/>
+
 
         </div>
 
@@ -60,6 +68,7 @@
             <a target="_blank" v-on:click="getCurrentSource(results)">
             <img :src="results.urlToImage" class="img-responsive" /></a>
           <hr/>
+
 
         </div>
       </div>
@@ -134,7 +143,8 @@ export default {
       open:false,
       current:0,
       value:'',
-      selection:''
+      selection:'',
+      postAmount:null
     }
   },
 
