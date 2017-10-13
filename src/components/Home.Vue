@@ -62,7 +62,7 @@
       </div>
 
       <div v-else>
-        <div v-for="results in result.articles">
+        <div v-for="results in limitedAmount">
 
           <div class="newsTitle">  {{results.title}} </div>
             <a target="_blank" v-on:click="getCurrentSource(results)">
@@ -167,8 +167,25 @@ computed: {
 
 
   reverseItems() {
-    return this.result.articles.slice().reverse();
+    var result = this.result.articles.slice().reverse();
+    if(this.postAmount == 5) {
+      var sliced = result.slice(0,5);
+      return sliced;
+    } else {
+      return result;
+    }
+
+  },
+
+  limitedAmount() {
+    if(this.postAmount == 5) {
+      return this.result.articles.slice(0,5);
+    } else {
+      return this.result.articles;
+    }
   }
+
+
 
 },
 
